@@ -1,0 +1,20 @@
+kind: Job
+apiVersion: batch/v1
+metadata:
+   name: demo-job
+   namespace: nginx
+spec:
+  completions: 1
+  parallelism: 1
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job
+spec:
+  template:
+    spec:
+      containers:
+      - name: pi
+        image: perl:5.34.0
+        command: ["sh",  "-c", "echo hello vinit && sleep 10"]
+      restartPolicy: Never
