@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginxwala
+  labels:
+    app: nginxwala
+
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginxwala
+
+  template:
+    metadata:
+      labels:
+        app: nginxwala
+
+    spec:
+      containers:
+        - name: mycontainer
+          image: nginx
+          ports:
+            - containerPort: 80
+
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: 80
