@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqlwala
+  labels:
+    app: mylabel
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mylabel
+
+  template:
+    metadata:
+      labels:
+        app: mylabel
+
+    spec:
+      containers:
+        - name: mycontainer
+          image: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom :
+                configMapKeyRef:
+                    name: mysqlconfig
+                    key: MYSQL_ROOT_PASSWORD
