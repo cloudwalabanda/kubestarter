@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: nginxwala
+spec:
+   replicas: 3
+   selector:
+     matchLabels:
+       app: myapp
+   template:
+       metadata:
+          labels:
+            app: myapp
+       spec:
+          containers:
+             - name: mycontainer
+               image: nginx
+               ports:
+                - containerPort: 80
+               volumeMounts:
+                     - name: yovolume
+                       mountPath: /etc/nginx/conf.d/default.conf
+                       subPath: default.conf
+          volumes:
+             - name: yovolume
+               configMap:
+                    name: nginxconfig
